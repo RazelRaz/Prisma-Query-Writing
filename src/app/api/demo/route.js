@@ -1,14 +1,29 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-export async function GET(req,res){
+export async function POST(req,res){
 
+    BigInt.prototype.toJSON = function () {
+        return this.toString();
+    };
+
+    try {
+        const prisma = new PrismaClient();
+
+
+
+        return NextResponse.json( {status:'Success',data: result} )
+    }
+
+    catch (e) {
+        return NextResponse.json( {status:'fail',data: e} )
+    }
     
-    const prisma = new PrismaClient();
+    
 
     //insert one
 
-    // await prisma.brands.create({
+    // let data = await prisma.brands.create({
     //     data:{brandName:'Orange', brandImg:'orange1234.png'}
     // })
 
@@ -34,11 +49,15 @@ export async function GET(req,res){
 
 
     //Delete query
-    await prisma.brands.delete({
-        where:{id:18}
-    })
+    // await prisma.brands.delete({
+    //     where:{id:18}
+    // })
 
 
+    //Find
+    // const brands = await prisma.brands.findMany();
+    // console.log(brands);
 
-    return NextResponse.json({status:'Success'})
+
+    
 }
